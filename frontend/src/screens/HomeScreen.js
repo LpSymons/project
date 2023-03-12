@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 import { useEffect, useReducer, useState } from 'react';
 import axios from 'axios';
 import logger from 'use-reducer-logger';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Product from '../components/Product';
+import { Helmet } from 'react-helmet-async';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
 
 //using states with a logger to fetch data from the backend
 const reducer = (state, action) => {
@@ -42,30 +48,25 @@ function HomeScreen() {
   }, []);
   return (
     <div>
+      <Helmet>
+        <title>Shopping Project</title>
+      </Helmet>
       {/* shows an loading message to the user with states */}
       <h1>Products</h1>
       <div className="products">
         {loading ? (
-          <div>loading...</div>
+          <LoadingBox />
         ) : error ? (
-          <div>{error}</div>
+          <MessageBox variant="danger">{error}</MessageBox>
         ) : (
-          products.map((product) => (
-            <div className="product" key={product.slug}>
-              <Link to={`/product/${product.slug}`}>
-                <img src={product.image} alt={product.name} />
-              </Link>
-              <div className="product-info">
-                <Link to={`/product/${product.slug}`}>
-                  <p>{product.name}</p>
-                </Link>
-                <p>
-                  <strong>£{product.price}</strong>
-                </p>
-                <button>Add to Basket</button>
-              </div>
-            </div>
-          ))
+          <Row>
+            {products.map((product) => (
+              <Col key={product.slug} sm={6} md={4} lg={3} className="mb-3">
+                {/* Gets the product component */}
+                <Product product={product}></Product>
+              </Col>
+            ))}
+          </Row>
         )}
       </div>
     </div>

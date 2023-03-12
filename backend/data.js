@@ -1,6 +1,7 @@
 const data = {
   products: [
     {
+      _id: '1',
       name: 'Phone',
       slug: 'phone-url-display',
       category: 'mobiles',
@@ -13,6 +14,7 @@ const data = {
       description: 'Apple powerful smart phone',
     },
     {
+      _id: '2',
       name: 'Phone2',
       slug: 'phone2-url-display',
       category: 'mobiles',
@@ -25,10 +27,24 @@ const data = {
       description: 'Samsung powerful smart phone',
     },
     {
+      _id: '3',
       name: 'Phone3',
       slug: 'phone3-url-display',
       category: 'mobiles',
       image: '/images/p3.jpg.png',
+      price: 400,
+      countInStock: 0,
+      brand: 'Apple',
+      rating: 4.5,
+      numReviews: 10,
+      description: 'Apple powerful smart phone',
+    },
+    {
+      _id: '4',
+      name: 'Phone3',
+      slug: 'phone4-url-display',
+      category: 'mobiles',
+      image: '/images/p4.jpg.png',
       price: 400,
       countInStock: 10,
       brand: 'Apple',
