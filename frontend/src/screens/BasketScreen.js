@@ -86,7 +86,7 @@ export default function BasketScreen() {
                         <i className="fas fa-plus-circle"></i>
                       </Button>
                     </Col>
-                    <Col md={3}>${item.price}</Col>
+                    <Col md={3}>£{item.price}</Col>
                     <Col md={2}>
                       <Button
                         onClick={() => removeBasketHandler(item)}
@@ -108,7 +108,7 @@ export default function BasketScreen() {
                 <ListGroup.Item>
                   <h3>
                     Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}{' '}
-                    items) : $
+                    items) : £
                     {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
                   </h3>
                 </ListGroup.Item>

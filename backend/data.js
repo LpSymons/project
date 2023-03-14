@@ -1,7 +1,7 @@
 const data = {
   products: [
     {
-      _id: '1',
+      // _id: '1',
       name: 'Phone',
       slug: 'phone-url-display',
       category: 'mobiles',
@@ -14,7 +14,7 @@ const data = {
       description: 'Apple powerful smart phone',
     },
     {
-      _id: '2',
+      // _id: '2',
       name: 'Phone2',
       slug: 'phone2-url-display',
       category: 'mobiles',
@@ -27,7 +27,7 @@ const data = {
       description: 'Samsung powerful smart phone',
     },
     {
-      _id: '3',
+      // _id: '3',
       name: 'Phone3',
       slug: 'phone3-url-display',
       category: 'mobiles',
@@ -40,7 +40,7 @@ const data = {
       description: 'Apple powerful smart phone',
     },
     {
-      _id: '4',
+      //_id: '4',
       name: 'Phone3',
       slug: 'phone4-url-display',
       category: 'mobiles',
