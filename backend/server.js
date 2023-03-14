@@ -19,12 +19,11 @@ mongoose
 const app = express();
 
 app.use('/api/seed', seedRouter);
-
 //return list of product from backend
 app.use('/api/products', productRouter);
 
 //Listner on the port to detect changes and auto update with nodemon server
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
-  console.log(`serve at http://localhost:${port}`);
+  console.log(`Connected at http://localhost:${port}`);
 });

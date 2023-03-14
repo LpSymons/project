@@ -18,7 +18,7 @@ function App() {
       {/* using react bootstrap to style the elements within container */}
       <div className="d-flex flex-column site-container">
         <header>
-          <Navbar bg="dark" variant="dark">
+          <Navbar style={{ backgroundSize: '0', backgroundColor: '#00FFFF' }}>
             <Container>
               <LinkContainer to="/">
                 <Navbar.Brand>Shopping Project</Navbar.Brand>
