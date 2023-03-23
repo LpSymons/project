@@ -6,6 +6,7 @@ const productSchema = new mongoose.Schema(
     slug: { type: String, required: true, unique: true },
     image: { type: String, required: true },
     brand: { type: String, required: true },
+    storage: { type: String },
     category: { type: String },
     description: { type: String, required: true },
     price: { type: Number, required: true },

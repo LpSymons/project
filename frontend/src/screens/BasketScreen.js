@@ -37,7 +37,7 @@ export default function BasketScreen() {
   };
 
   const checkoutHandler = () => {
-    navigate('signin?redirect=/shipping');
+    navigate('signin?redirect=/postage');
   };
 
   return (
