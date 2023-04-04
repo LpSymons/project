@@ -6,10 +6,17 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import InputGroup from 'react-bootstrap/InputGroup';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 export default function UserProfileScreen() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
+  const adminMessage = 'Admin';
+  const navigate = useNavigate();
+
+  const adminHandler = () => {
+    navigate('/admin');
+  };
 
   return (
     <div>
@@ -49,6 +56,15 @@ export default function UserProfileScreen() {
           <Button variant="btn btn-primary" id="button-addon2">
             Change
           </Button>
+        </InputGroup>
+        <InputGroup className="mb-3">
+          <div>
+            {userInfo.isAdmin === true ? (
+              <Button type="submit" onClick={adminHandler}>
+                Admin Panel
+              </Button>
+            ) : null}
+          </div>
         </InputGroup>
       </div>
     </div>

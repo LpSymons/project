@@ -18,6 +18,7 @@ import PaymentMethodScreen from './screens/paymentScreen';
 import SearchScreen from './screens/SearchScreen';
 import SearchBox from './components/SearchBox';
 import UserProfileScreen from './screens/UserProfileScreen';
+import AdminScreen from './screens/AdminScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -107,6 +108,7 @@ function App() {
               <Route path="/postage" element={<PostageScreen />}></Route>
               <Route path="/profile" element={<UserProfileScreen />}></Route>
               <Route path="/payment" element={<PaymentMethodScreen />}></Route>
+              <Route path="/admin" element={<AdminScreen />}></Route>
               <Route path="/search" element={<SearchScreen />}></Route>
               <Route path="/" element={<HomeScreen />} />
             </Routes>
