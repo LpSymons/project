@@ -25,7 +25,7 @@ export default function PostageScreen() {
         country,
       },
     });
-    navigate('/checkout');
+    navigate('/payment');
   };
 
   return (

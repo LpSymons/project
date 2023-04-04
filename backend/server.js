@@ -6,12 +6,13 @@ import seedRouter from './routes/seedRoutes.js';
 import productRouter from './routes/productRoutes.js';
 import userRouter from './routes/userRoutes.js';
 
+//to pull the data from the .env file and store it.
 dotenv.config();
 
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
-    console.log('connected to db');
+    console.log(`Connectionn to DB Sucessfull ${port}`);
   })
   .catch((err) => {
     console.log(err.message);

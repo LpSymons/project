@@ -29,6 +29,7 @@ function Product(props) {
       payload: { ...item, quantity },
     });
   };
+  //Add out of stock and hide button for basket to-do
   return (
     <Card>
       <Link to={`/product/${product.slug}`}>

@@ -362,19 +362,6 @@ const data = {
         'Apple Pay ' +
         '189 g and 0.74 cm (6.66 ounces and 0.29 inches).',
     },
-    {
-      //_id: '4',
-      name: 'Phone9',
-      slug: 'phone4-url-display5',
-      category: 'mobiles',
-      image: '/images/p4.jpg.png',
-      price: 400,
-      countInStock: 10,
-      brand: 'Apple',
-      rating: 4.5,
-      numReviews: 10,
-      description: 'Apple powerful smart phone',
-    },
   ],
 };
 export default data;

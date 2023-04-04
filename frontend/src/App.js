@@ -7,32 +7,60 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Badge from 'react-bootstrap/Badge';
 import Container from 'react-bootstrap/Container';
 import { LinkContainer } from 'react-router-bootstrap';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Store } from './Store';
+import axios from 'axios';
 import BasketScreen from './screens/BasketScreen';
 import SignInScreen from './screens/SignInScreen';
 import PostageScreen from './screens/PostageScreen';
 import SignUpScreen from './screens/SignUpScreen';
+import PaymentMethodScreen from './screens/paymentScreen';
+import SearchScreen from './screens/SearchScreen';
+import SearchBox from './components/SearchBox';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
 
+  //Remove items when signout has occured
   const signoutHandler = () => {
     ctxDispatch({ type: 'USER_SIGNOUT' });
     localStorage.removeItem('userInfo');
+    localStorage.removeItem('paymentMethod');
   };
 
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const { data } = await axios.get(`/api/products/categories`);
+        setCategories(data);
+      } catch (err) {
+        window.alert(err);
+      }
+    };
+    fetchCategories();
+  }, []);
   return (
     <BrowserRouter>
       {/* using react bootstrap to style the elements within container */}
       <div className="d-flex flex-column site-container">
         <header>
-          <Navbar style={{ backgroundSize: '0', backgroundColor: '#00FFFF' }}>
+          <Navbar
+            className="color-nav"
+            varient="light"
+            style={{
+              backgroundSize: '0',
+              backgroundColor: '#4bacb8',
+              color: '#ffffff',
+            }}
+          >
             <Container>
               <LinkContainer to="/">
                 <Navbar.Brand>Shopping Project</Navbar.Brand>
               </LinkContainer>
+              <SearchBox />
               <Nav className="me-auto">
                 <Link to="/basket" className="nav-link">
                   Cart
@@ -76,6 +104,8 @@ function App() {
               <Route path="/basket/signin" element={<SignInScreen />} />
               <Route path="/signup" element={<SignUpScreen />} />
               <Route path="/postage" element={<PostageScreen />}></Route>
+              <Route path="/payment" element={<PaymentMethodScreen />}></Route>
+              <Route path="/search" element={<SearchScreen />}></Route>
               <Route path="/" element={<HomeScreen />} />
             </Routes>
           </Container>
