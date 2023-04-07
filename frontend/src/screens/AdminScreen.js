@@ -14,6 +14,10 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { useContext } from 'react';
 import { Store } from '../Store';
+import Product from '../components/ProductAdmin';
+import { Link } from 'react-router-dom';
+//import data from '../data';
+import logger from 'use-reducer-logger';
 
 //using states with a logger to fetch data from the backend
 const reducer = (state, action) => {
@@ -30,14 +34,10 @@ const reducer = (state, action) => {
 };
 
 export default function AdminScreen() {
-  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { state } = useContext(Store);
   const { userInfo } = state;
-  const navigate = useNavigate();
-  const params = useParams();
-  const { slug } = params;
-
-  const [{ loading, error, product }, dispatch] = useReducer(reducer, {
-    product: [],
+  const [{ loading, error, product }, dispatch] = useReducer(logger(reducer), {
+    products: [],
     loading: true,
     error: '',
   });
@@ -46,94 +46,56 @@ export default function AdminScreen() {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
         //Call axios to send a ajax request to put the result in result.
-        const result = await axios.get(`/api/products/slug/${slug}`);
+        const result = await axios.get('/api/products');
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL', payload: err.message });
       }
     };
     fetchData();
-  }, [slug]);
+  }, []);
 
   //a direct function that plugs the slug
 
   return (
     <div>
-      <Helmet>Admin Screen</Helmet>
+      <Helmet>
+        <title>Admin Panel</title>
+      </Helmet>
       <div>
-        {userInfo.isAdmin === true ? (
+        {userInfo && userInfo.isAdmin ? (
           <div>
-            <Row>
-              <Col md={6}>
-                <img
-                  className="img-large"
-                  src={product.image}
-                  alt={product.name}
-                ></img>
-              </Col>
-              <Col md={3}>
-                <ListGroup variant="flush">
-                  <ListGroup.Item>
-                    {/* Using helmet to display the product name as the name of the tab in chrome */}
-                    <Helmet>
-                      <title>{product.name}</title>
-                    </Helmet>
-                    <h1>{product.name}</h1>
-                  </ListGroup.Item>
-                  <ListGroup.Item>Storage : {product.storage}</ListGroup.Item>
-                  <ListGroup.Item>
-                    <Rating
-                      rating={product.rating}
-                      numReviews={product.numReviews}
-                    ></Rating>
-                  </ListGroup.Item>
-                  <ListGroup.Item>Price : £{product.price}</ListGroup.Item>
-                  <ListGroup.Item>
-                    Description:
-                    <p>{product.description}</p>
-                  </ListGroup.Item>
-                </ListGroup>
-              </Col>
-              <Col md={3}>
-                <Card>
-                  <Card.Body>
-                    <ListGroup variant="flush">
-                      <ListGroup.Item>
-                        <Row>
-                          <Col>Price:</Col>
-                          <Col>£{product.price}</Col>
-                        </Row>
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <Row>
-                          <Col>Stock:</Col>
-                          <Col>
-                            {product.countInStock > 0 ? (
-                              <Badge bg="success">In Stock</Badge>
-                            ) : (
-                              <Badge bg="danger">Out of Stock</Badge>
-                            )}
-                          </Col>
-                        </Row>
-                      </ListGroup.Item>
-                      {/* Check stock count if greater than zero show add to cart button */}
-                      {product.countInStock > 0 && (
-                        <ListGroup.Item>
-                          <div className="d-grid">
-                            <Button
-                              onClick={addToCartHandler}
-                              variant="primary"
-                            >
-                              Add to Basket
-                            </Button>
-                          </div>
-                        </ListGroup.Item>
-                      )}
-                    </ListGroup>
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
+            {/* shows an loading message to the user with states */}
+            <h1>Admin Screen</h1>
+            {/* <Row md-3>
+              <Col>
+                <Link to={`/product/newProduct`}>
+                  <Button>Add Product</Button>
+                </Link>
+              </Col>{' '}
+            </Row> */}
+            <div className="products">
+              {loading ? (
+                <LoadingBox />
+              ) : error ? (
+                <MessageBox variant="danger">{error}</MessageBox>
+              ) : (
+                <Row>
+                  {product.map((product) => (
+                    <Col
+                      key={product.slug}
+                      sm={2}
+                      md={2}
+                      lg={2}
+                      className="mb-3"
+                    >
+                      {/* Gets the product component */}
+                      <Product product={product}></Product>
+                    </Col>
+                  ))}
+                </Row>
+              )}
+            </div>
           </div>
         ) : (
           window.alert('This page is restricted')

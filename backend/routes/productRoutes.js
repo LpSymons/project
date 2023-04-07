@@ -112,4 +112,12 @@ productRouter.get('/:id', async (req, res) => {
   }
 });
 
+// productRouter.post(
+//   expressAsyncHandler(async (req, res) => {
+//     const newProduct = new Product({
+//       name: 'new name' + Date.now(),
+//     });
+//   })
+// );
+
 export default productRouter;
