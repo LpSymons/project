@@ -43,7 +43,7 @@ function Product(props) {
           rating={product.rating}
           numReviews={product.numReviews}
         ></Rating>
-        <Card.Text>£{product.price}</Card.Text>
+        <Card.Text>£{product.price.toFixed(2)}</Card.Text>
         <Button onClick={() => addBasketHandler(product)}>Add to Basket</Button>
       </Card.Body>
     </Card>

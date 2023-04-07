@@ -112,7 +112,7 @@ function App() {
               <Route path="/admin" element={<AdminScreen />}></Route>
               <Route path="/search" element={<SearchScreen />}></Route>
               <Route
-                path="/product/:id"
+                path="/admin/product/:slug"
                 element={<EditProductScreen />}
               ></Route>
               <Route path="/" element={<HomeScreen />} />
