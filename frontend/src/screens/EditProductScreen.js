@@ -17,6 +17,7 @@ import MessageBox from '../components/MessageBox';
 import { useContext } from 'react';
 import { Store } from '../Store';
 import Modal from 'react-bootstrap/Modal';
+import { getError } from '../utlis.js';
 
 //using states with a logger to fetch data from the backend
 const reducer = (state, action) => {
@@ -27,56 +28,130 @@ const reducer = (state, action) => {
       return { ...state, product: action.payload, loading: false };
     case 'FETCH_FAIL':
       return { ...state, loading: false, error: action.payload };
+    case 'DELETE_REQUEST':
+      return { ...state, loadingDelete: true, successDelete: false };
+    case 'DELETE_SUCCESS':
+      return {
+        ...state,
+        loadingDelete: false,
+        successDelete: true,
+      };
+    case 'DELETE_FAIL':
+      return { ...state, loadingDelete: false, successDelete: false };
+
+    case 'DELETE_RESET':
+      return { ...state, loadingDelete: false, successDelete: false };
     default:
       return state;
   }
 };
 
 function EditProductScreen() {
+  const [
+    {
+      loading,
+      error,
+      product,
+      pages,
+      loadingCreate,
+      loadingDelete,
+      successDelete,
+    },
+    dispatch,
+  ] = useReducer(reducer, {
+    loading: true,
+    error: '',
+  });
   const navigate = useNavigate();
+  const { state } = useContext(Store);
   const params = useParams();
   const { slug } = params;
+  const { id: productId } = params;
   const [show, setShow] = useState(false);
+  const { userInfo } = state;
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [{ loading, error, product }, dispatch] = useReducer(reducer, {
-    product: [],
-    loading: true,
-    error: '',
-  });
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
         //Call axios to send a ajax request to put the result in result.
-        const result = await axios.get(`/api/products/slug/${slug}`);
-        dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
+        const { data } = await axios.get(`/api/products/slug/${slug}`);
+        dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL', payload: err.message });
       }
     };
-    fetchData();
-  }, [slug]);
 
-  const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { cart } = state;
-  const { userInfo } = state;
-  const addToCartHandler = async () => {
-    const existItem = cart.cartItems.find((x) => x._id === product._id);
-    const quantity = existItem ? existItem.quantity + 1 : 1;
-    const { data } = await axios.get(`/api/products/${product._id}`);
-    if (data.countInStock < quantity) {
-      window.alert('Sorry. Product is out of stock');
-      return;
+    if (successDelete) {
+      dispatch({ type: 'DELETE_RESET' });
+    } else {
+      fetchData();
     }
-    ctxDispatch({
-      type: 'CART_ADD_ITEM',
-      payload: { ...product, quantity },
-    });
-    navigate('/basket');
+    fetchData();
+  }, [slug, successDelete]);
+
+  // const updateBasketHandler = async (item, quantity) => {
+  //   //Ajax request to backend to get data of the current product
+  //   const { data } = await axios.get(`/api/products/${item._id}`);
+
+  //Delete handler
+  // const removeProductHandler = async (product) => {
+  //   if (window.confirm('Are you sure to delete?')) {
+  //     try {
+  //       await axios.delete(`/api/products/${product._id}`, {
+  //         headers: { Authorization: `Bearer ${userInfo.token}` },
+  //       });
+  //       window.alert('product deleted successfully');
+  //       dispatch({ type: 'DELETE_SUCCESS' });
+  //     } catch (err) {
+  //       //window.alert(error.response.data);
+  //       console.log(err);
+  //       dispatch({
+  //         type: 'DELETE_FAIL',
+  //       });
+  //     }
+  //   }
+  // };
+
+  const removeProductHandler = async (product) => {
+    try {
+      await axios.delete(`/api/products/${product._id}`);
+      window.alert('Product Removed');
+      dispatch({ type: 'DELETE_SUCCESS' });
+    } catch (err) {
+      // window.alert(error.response.data);
+      //console.log(err);
+      console.log(err.response);
+      dispatch({ type: 'DELETE_FAIL' });
+    }
   };
+
+  // const removeProductHandler = async (product) => {
+  //   try{
+  //     await axios.delete(`${product._id}`);
+  //   }
+  // };
+
+  // const { state, dispatch: ctxDispatch } = useContext(Store);
+  // const { cart } = state;
+  // const { userInfo } = state;
+  // const addToCartHandler = async () => {
+  //   const existItem = cart.cartItems.find((x) => x._id === product._id);
+  //   const quantity = existItem ? existItem.quantity + 1 : 1;
+  //   const { data } = await axios.get(`/api/products/${product._id}`);
+  //   if (data.countInStock < quantity) {
+  //     window.alert('Sorry. Product is out of stock');
+  //     return;
+  //   }
+  //   ctxDispatch({
+  //     type: 'CART_ADD_ITEM',
+  //     payload: { ...product, quantity },
+  //   });
+  //   navigate('/basket');
+  // };
   return loading ? (
     <LoadingBox />
   ) : error ? (
@@ -92,6 +167,11 @@ function EditProductScreen() {
             {/* shows an loading message to the user with states */}
             <h1>Admin Screen for ID = {product._id}</h1>
             <h2>{product.slug}</h2>
+            <div>
+              <Button onClick={() => removeProductHandler(product)}>
+                test
+              </Button>
+            </div>
             <ListGroup as="ol" numbered>
               <ListGroup.Item
                 as="li"
@@ -225,18 +305,15 @@ function EditProductScreen() {
                 <Button variant="secondary" onClick={handleClose}>
                   Close
                 </Button>
-                <Button variant="primary" onClick={handleClose}>
+                <Button
+                  variant="primary"
+                  type="submit"
+                  onClick={() => removeProductHandler(product._id)}
+                >
                   Save Changes
                 </Button>
               </Modal.Footer>
             </Modal>
-            {/* <Row md-3>
-                <Col>
-                  <Link to={`/product/newProduct`}>
-                    <Button>Add Product</Button>
-                  </Link>
-                </Col>{' '}
-              </Row> */}
           </div>
         ) : (
           window.alert('This page is restricted')
@@ -245,84 +322,4 @@ function EditProductScreen() {
     </div>
   );
 }
-//     <div>
-//       <Row>
-//         <div>
-
-//       {userInfo && userInfo.isAdmin ? (
-//         <Col md={6}>
-//           <img
-//             className="img-large"
-//             src={product.image}
-//             alt={product.name}
-//           ></img>
-//         </Col>
-//         <Col md={3}>
-//           <ListGroup variant="flush">
-//             <ListGroup.Item>
-//               {/* Using helmet to display the product name as the name of the tab in chrome */}
-//               <Helmet>
-//                 <title>{product.name}</title>
-//               </Helmet>
-//               <h1>{product.name}</h1>
-//             </ListGroup.Item>
-//             <ListGroup.Item>Storage : {product.storage}</ListGroup.Item>
-//             <ListGroup.Item>
-//               <Rating
-//                 rating={product.rating}
-//                 numReviews={product.numReviews}
-//               ></Rating>
-//             </ListGroup.Item>
-//             <ListGroup.Item>Price : £{product.price}</ListGroup.Item>
-//             <ListGroup.Item>
-//               Description:
-//               <p>{product.description}</p>
-//             </ListGroup.Item>
-//           </ListGroup>
-//         </Col>
-//         <Col md={3}>
-//           <Card>
-//             <Card.Body>
-//               <ListGroup variant="flush">
-//                 <ListGroup.Item>
-//                   <Row>
-//                     <Col>Price:</Col>
-//                     <Col>£{product.price}</Col>
-//                   </Row>
-//                 </ListGroup.Item>
-//                 <ListGroup.Item>
-//                   <Row>
-//                     <Col>Stock:</Col>
-//                     <Col>
-//                       {product.countInStock > 0 ? (
-//                         <Badge bg="success">In Stock</Badge>
-//                       ) : (
-//                         <Badge bg="danger">Out of Stock</Badge>
-//                       )}
-//                     </Col>
-//                   </Row>
-//                 </ListGroup.Item>
-//                 {/* Check stock count if greater than zero show add to cart button */}
-//                 {product.countInStock > 0 && (
-//                   <ListGroup.Item>
-//                     <div className="d-grid">
-//                       <Button onClick={addToCartHandler} variant="primary">
-//                         Add to Basket
-//                       </Button>
-//                     </div>
-//                   </ListGroup.Item>
-//                 )}
-//               </ListGroup>
-//             </Card.Body>
-//           </Card>
-//         </Col>
-
-// ) : (
-//   window.alert('This page is restricted')
-//   )}
-//   </div>
-//       </Row>
-//     </div>
-//   );
-// }
 export default EditProductScreen;
