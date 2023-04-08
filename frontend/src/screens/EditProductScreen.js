@@ -1,4 +1,4 @@
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Navigate, redirect, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useReducer, useState } from 'react';
 import axios from 'axios';
 import Row from 'react-bootstrap/Row';
@@ -93,65 +93,20 @@ function EditProductScreen() {
     fetchData();
   }, [slug, successDelete]);
 
-  // const updateBasketHandler = async (item, quantity) => {
-  //   //Ajax request to backend to get data of the current product
-  //   const { data } = await axios.get(`/api/products/${item._id}`);
-
-  //Delete handler
-  // const removeProductHandler = async (product) => {
-  //   if (window.confirm('Are you sure to delete?')) {
-  //     try {
-  //       await axios.delete(`/api/products/${product._id}`, {
-  //         headers: { Authorization: `Bearer ${userInfo.token}` },
-  //       });
-  //       window.alert('product deleted successfully');
-  //       dispatch({ type: 'DELETE_SUCCESS' });
-  //     } catch (err) {
-  //       //window.alert(error.response.data);
-  //       console.log(err);
-  //       dispatch({
-  //         type: 'DELETE_FAIL',
-  //       });
-  //     }
-  //   }
-  // };
-
   const removeProductHandler = async (product) => {
     try {
       await axios.delete(`/api/products/${product._id}`);
       window.alert('Product Removed');
+      handleClose();
+      navigate('/admin');
+
       dispatch({ type: 'DELETE_SUCCESS' });
     } catch (err) {
-      // window.alert(error.response.data);
-      //console.log(err);
       console.log(err.response);
       dispatch({ type: 'DELETE_FAIL' });
     }
   };
 
-  // const removeProductHandler = async (product) => {
-  //   try{
-  //     await axios.delete(`${product._id}`);
-  //   }
-  // };
-
-  // const { state, dispatch: ctxDispatch } = useContext(Store);
-  // const { cart } = state;
-  // const { userInfo } = state;
-  // const addToCartHandler = async () => {
-  //   const existItem = cart.cartItems.find((x) => x._id === product._id);
-  //   const quantity = existItem ? existItem.quantity + 1 : 1;
-  //   const { data } = await axios.get(`/api/products/${product._id}`);
-  //   if (data.countInStock < quantity) {
-  //     window.alert('Sorry. Product is out of stock');
-  //     return;
-  //   }
-  //   ctxDispatch({
-  //     type: 'CART_ADD_ITEM',
-  //     payload: { ...product, quantity },
-  //   });
-  //   navigate('/basket');
-  // };
   return loading ? (
     <LoadingBox />
   ) : error ? (
@@ -167,11 +122,7 @@ function EditProductScreen() {
             {/* shows an loading message to the user with states */}
             <h1>Admin Screen for ID = {product._id}</h1>
             <h2>{product.slug}</h2>
-            <div>
-              <Button onClick={() => removeProductHandler(product)}>
-                test
-              </Button>
-            </div>
+
             <ListGroup as="ol" numbered>
               <ListGroup.Item
                 as="li"
@@ -181,7 +132,13 @@ function EditProductScreen() {
                   <div className="fw-bold">Product Name</div>
                   {product.name}
                 </div>
-                <Button>Change</Button>
+                <Button
+                // value={name}
+                // onChange={(e) => setName(e.target.value)}
+                // required
+                >
+                  Change
+                </Button>
               </ListGroup.Item>
               <ListGroup.Item
                 as="li"
@@ -296,21 +253,22 @@ function EditProductScreen() {
                     controlId="exampleForm.ControlTextarea1"
                   >
                     <Form.Label>
-                      Removing Product: {product.name}. Are you sure?
+                      Removing Product: {product.name}. This will delete this
+                      product from the website, Are you sure?
                     </Form.Label>
                   </Form.Group>
                 </Form>
               </Modal.Body>
               <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
-                  Close
+                  Back
                 </Button>
                 <Button
                   variant="primary"
                   type="submit"
-                  onClick={() => removeProductHandler(product._id)}
+                  onClick={() => removeProductHandler(product)}
                 >
-                  Save Changes
+                  Remove
                 </Button>
               </Modal.Footer>
             </Modal>
