@@ -170,22 +170,24 @@ function EditProductScreen() {
                   <div className="fw-bold">Product Name</div>
                   {product.name}
                 </div>
-                <InputGroup
-                  onSubmit={updateProductHandler}
-                  size="sm"
-                  className="mb-3"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                >
-                  <Form.Control placeholder="Enter a new Name" />
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    onClick={() => updateProductHandler(product.name)}
+                <Col md={3}>
+                  <InputGroup
+                    onSubmit={updateProductHandler}
+                    size="sm"
+                    className="mb-3"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                   >
-                    Change
-                  </Button>
-                </InputGroup>
+                    <Form.Control placeholder="Enter a new Name" />
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      onClick={() => updateProductHandler(product.name)}
+                    >
+                      Change
+                    </Button>
+                  </InputGroup>
+                </Col>
               </ListGroup.Item>
               <ListGroup.Item
                 as="li"
@@ -195,22 +197,24 @@ function EditProductScreen() {
                   <div className="fw-bold">Category</div>
                   {product.category}
                 </div>
-                <InputGroup
-                  onSubmit={updateProductHandler}
-                  size="sm"
-                  className="mb-3"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                >
-                  <Form.Control placeholder="Enter a New Product Category" />
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    onClick={() => updateProductHandler(product.category)}
+                <Col md={3}>
+                  <InputGroup
+                    onSubmit={updateProductHandler}
+                    size="sm"
+                    className="mb-3"
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
                   >
-                    Change
-                  </Button>
-                </InputGroup>
+                    <Form.Control placeholder="Enter a New Product Category" />
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      onClick={() => updateProductHandler(product.category)}
+                    >
+                      Change
+                    </Button>
+                  </InputGroup>
+                </Col>
               </ListGroup.Item>
               <ListGroup.Item
                 as="li"
@@ -220,22 +224,24 @@ function EditProductScreen() {
                   <div className="fw-bold">Storage</div>
                   {product.storage}
                 </div>
-                <InputGroup
-                  onSubmit={updateProductHandler}
-                  size="sm"
-                  className="mb-3"
-                  value={storage}
-                  onChange={(e) => setStorage(e.target.value)}
-                >
-                  <Form.Control placeholder="Enter a Storage Amount" />
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    onClick={() => updateProductHandler(product.storage)}
+                <Col md={3}>
+                  <InputGroup
+                    onSubmit={updateProductHandler}
+                    size="sm"
+                    className="mb-3"
+                    value={storage}
+                    onChange={(e) => setStorage(e.target.value)}
                   >
-                    Change
-                  </Button>
-                </InputGroup>
+                    <Form.Control placeholder="Enter a Storage Amount" />
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      onClick={() => updateProductHandler(product.storage)}
+                    >
+                      Change
+                    </Button>
+                  </InputGroup>
+                </Col>
               </ListGroup.Item>
               <ListGroup.Item
                 as="li"
@@ -245,22 +251,24 @@ function EditProductScreen() {
                   <div className="fw-bold">Price</div>
                   {product.price.toFixed(2)}
                 </div>
-                <InputGroup
-                  onSubmit={updateProductHandler}
-                  size="sm"
-                  className="mb-3"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                >
-                  <Form.Control placeholder="Enter a New Price" />
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    onClick={() => updateProductHandler(product.price)}
+                <Col md={3}>
+                  <InputGroup
+                    onSubmit={updateProductHandler}
+                    size="sm"
+                    className="mb-3"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
                   >
-                    Change
-                  </Button>
-                </InputGroup>
+                    <Form.Control placeholder="Enter a New Price" />
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      onClick={() => updateProductHandler(product.price)}
+                    >
+                      Change
+                    </Button>
+                  </InputGroup>
+                </Col>
               </ListGroup.Item>
               <ListGroup.Item
                 as="li"
@@ -279,22 +287,24 @@ function EditProductScreen() {
                   <div className="fw-bold">Brand</div>
                   {product.brand}
                 </div>
-                <InputGroup
-                  onSubmit={updateProductHandler}
-                  size="sm"
-                  className="mb-3"
-                  value={brand}
-                  onChange={(e) => setBrand(e.target.value)}
-                >
-                  <Form.Control placeholder="Enter a New Product Brand" />
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    onClick={() => updateProductHandler(product.brand)}
+                <Col md={3}>
+                  <InputGroup
+                    onSubmit={updateProductHandler}
+                    size="sm"
+                    className="mb-3"
+                    value={brand}
+                    onChange={(e) => setBrand(e.target.value)}
                   >
-                    Change
-                  </Button>
-                </InputGroup>
+                    <Form.Control placeholder="Enter a New Product Brand" />
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      onClick={() => updateProductHandler(product.brand)}
+                    >
+                      Change
+                    </Button>
+                  </InputGroup>
+                </Col>
               </ListGroup.Item>
               <ListGroup.Item
                 as="li"
@@ -322,22 +332,24 @@ function EditProductScreen() {
                   <div className="fw-bold">Description</div>
                   {product.description}
                 </div>
-                <InputGroup
-                  onSubmit={updateProductHandler}
-                  size="sm"
-                  className="mb-3"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                >
-                  <Form.Control placeholder="Enter a New Description" />
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    onClick={() => updateProductHandler(product.description)}
+                <Col md={3}>
+                  <InputGroup
+                    onSubmit={updateProductHandler}
+                    size="sm"
+                    className="mb-3"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                   >
-                    Change
-                  </Button>
-                </InputGroup>
+                    <Form.Control placeholder="Enter a New Description" />
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      onClick={() => updateProductHandler(product.description)}
+                    >
+                      Change
+                    </Button>
+                  </InputGroup>
+                </Col>
               </ListGroup.Item>
             </ListGroup>
             <Form on onSubmit={updateProductHandler}>
@@ -348,6 +360,7 @@ function EditProductScreen() {
                     Name
                   </Form.Label>
                   <Form.Control
+                    type="number"
                     value={countInStock}
                     id="inlineFormInputName"
                     onChange={(e) => setCountInStock(e.target.value)}

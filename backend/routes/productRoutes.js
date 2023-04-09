@@ -163,7 +163,7 @@ productRouter.post(
       countInStock: req.body.countInStock,
       rating: 0,
       numReviews: 0,
-      description: req.body.brand,
+      description: req.body.description,
     });
     const product = await newProduct.save();
     res.send({ message: 'Product Created', product });

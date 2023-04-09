@@ -162,23 +162,19 @@ export default function ProductListScreen() {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="name2">
-            <Form.Label>Product Description</Form.Label>
+            <Form.Label>Description</Form.Label>
             <Form.Control
+              placeholder="Only enter numbers"
               onChange={(e) => setDescription(e.target.value)}
               required
             />
           </Form.Group>
           <div className="mb-3">
-            <Button type="submit">Sign Up</Button>
-          </div>
-        </Form>
-        <Col className="col text-end">
-          <div>
             <Button type="button" onClick={addProductHandler}>
-              Create Product
+              Create
             </Button>
           </div>
-        </Col>
+        </Form>
       </Row>
     </div>
   );
