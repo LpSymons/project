@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import Rating from './Rating';
 import axios from 'axios';
+import Row from 'react-bootstrap/Row';
 import { useContext } from 'react';
 import { Store } from '../Store';
 
@@ -30,24 +31,30 @@ function Product(props) {
 
   //Add out of stock and hide button for basket to-do
   return (
-    <Card>
-      <Link to={`/admin/product/${product.slug}`}>
-        <img src={product.image} className="card-img-top" alt={product.name} />
-      </Link>
-      <Card.Body>
+    <div>
+      <Card>
         <Link to={`/admin/product/${product.slug}`}>
-          <Card.Title>{product.name}</Card.Title>
+          <img
+            src={product.image}
+            className="card-img-top"
+            alt={product.name}
+          />
         </Link>
-        <Rating
-          rating={product.rating}
-          numReviews={product.numReviews}
-        ></Rating>
-        <Card.Text>£{product.price.toFixed(2)}</Card.Text>
-        <Link to={`/admin/product/${product.slug}`}>
-          <Button>Edit Product</Button>
-        </Link>
-      </Card.Body>
-    </Card>
+        <Card.Body>
+          <Link to={`/admin/product/${product.slug}`}>
+            <Card.Title>{product.name}</Card.Title>
+          </Link>
+          <Rating
+            rating={product.rating}
+            numReviews={product.numReviews}
+          ></Rating>
+          <Card.Text>£{product.price.toFixed(2)}</Card.Text>
+          <Link to={`/admin/product/${product.slug}`}>
+            <Button>Edit Product</Button>
+          </Link>
+        </Card.Body>
+      </Card>
+    </div>
   );
 }
 export default Product;

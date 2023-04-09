@@ -126,6 +126,52 @@ productRouter.delete(
   })
 );
 
+//to-do create a method that checks the new inputs possibly via states
+// and actions the correct change.
+productRouter.put(
+  '/:id/',
+  expressAsyncHandler(async (req, res) => {
+    const productId = req.params.id;
+    const product = await Product.findById(productId);
+    if (product) {
+      //product.name = req.body.name;
+
+      //product.countInStock = req.body.countInStock;
+      // product.slug = req.body.slug;
+      product.price = req.body.price;
+      // product.category = req.body.category;
+      // product.brand = req.body.brand;
+      // product.countInStock = req.body.countInStock;
+      // product.description = req.body.description;
+      await product.save();
+      res.send({ message: 'Product Updated' });
+    } else {
+      res.status(404).send({ message: 'Product Not Found' });
+    }
+  })
+);
+
+productRouter.post(
+  '/',
+  expressAsyncHandler(async (req, res) => {
+    const newProduct = new Product({
+      name: req.body.name,
+      slug: req.body.slug,
+      image: '/images/sample.png',
+      price: req.body.price,
+      category: req.body.category,
+      storage: req.body.storage,
+      brand: req.body.brand,
+      countInStock: req.body.countInStock,
+      rating: 0,
+      numReviews: 0,
+      description: req.body.brand,
+    });
+    const product = await newProduct.save();
+    res.send({ message: 'Product Created', product });
+  })
+);
+
 // productRouter.post(
 //   expressAsyncHandler(async (req, res) => {
 //     const newProduct = new Product({

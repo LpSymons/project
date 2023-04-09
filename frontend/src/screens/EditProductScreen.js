@@ -41,6 +41,12 @@ const reducer = (state, action) => {
 
     case 'DELETE_RESET':
       return { ...state, loadingDelete: false, successDelete: false };
+    case 'UPDATE_REQUEST':
+      return { ...state, loadingUpdate: true };
+    case 'UPDATE_SUCCESS':
+      return { ...state, loadingUpdate: false };
+    case 'UPDATE_FAIL':
+      return { ...state, loadingUpdate: false };
     default:
       return state;
   }
@@ -72,6 +78,15 @@ function EditProductScreen() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const [name, setName] = useState('');
+  //const [slug, setSlug] = useState('');
+  const [price, setPrice] = useState('');
+  const [image, setImage] = useState('');
+  const [category, setCategory] = useState('');
+  const [countInStock, setCountInStock] = useState('');
+  const [brand, setBrand] = useState('');
+  const [description, setDescription] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -107,6 +122,31 @@ function EditProductScreen() {
     }
   };
 
+  const updateProductHandler = async () => {
+    try {
+      dispatch({ type: 'UPDATE_REQUEST' });
+      await axios.put(`/api/products/${product._id}`, {
+        _id: productId,
+        name,
+        slug,
+        price,
+        image,
+        category,
+        brand,
+        countInStock,
+        description,
+      });
+      dispatch({
+        type: 'UPDATE_SUCCESS',
+      });
+      window.alert('Product updated successfully');
+      navigate('/admin');
+    } catch (err) {
+      window.alert(getError(err));
+      dispatch({ type: 'UPDATE_FAIL' });
+    }
+  };
+
   return loading ? (
     <LoadingBox />
   ) : error ? (
@@ -132,13 +172,6 @@ function EditProductScreen() {
                   <div className="fw-bold">Product Name</div>
                   {product.name}
                 </div>
-                <Button
-                // value={name}
-                // onChange={(e) => setName(e.target.value)}
-                // required
-                >
-                  Change
-                </Button>
               </ListGroup.Item>
               <ListGroup.Item
                 as="li"
@@ -168,7 +201,22 @@ function EditProductScreen() {
                   <div className="fw-bold">Price</div>
                   {product.price.toFixed(2)}
                 </div>
-                <Button>Change</Button>
+                <InputGroup
+                  onSubmit={updateProductHandler}
+                  size="sm"
+                  className="mb-3"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                >
+                  <Form.Control placeholder="Enter a New Price" />
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    onClick={() => updateProductHandler(product.price)}
+                  >
+                    Change
+                  </Button>
+                </InputGroup>
               </ListGroup.Item>
               <ListGroup.Item
                 as="li"
@@ -178,7 +226,6 @@ function EditProductScreen() {
                   <div className="fw-bold">Stock Level</div>
                   {product.countInStock}
                 </div>
-                <Button>Change</Button>
               </ListGroup.Item>
               <ListGroup.Item
                 as="li"
@@ -219,7 +266,7 @@ function EditProductScreen() {
                 <Button>Change</Button>
               </ListGroup.Item>
             </ListGroup>
-            <Form>
+            <Form on onSubmit={updateProductHandler}>
               <h2>Stock Control</h2>
               <Row className="align-items-center">
                 <Col sm={3} className="my-1">
@@ -227,7 +274,10 @@ function EditProductScreen() {
                     Name
                   </Form.Label>
                   <Form.Control
+                    value={countInStock}
                     id="inlineFormInputName"
+                    onChange={(e) => setCountInStock(e.target.value)}
+                    required
                     placeholder="Enter Stock Amount (Digits only)"
                   />
                 </Col>

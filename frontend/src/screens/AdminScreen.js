@@ -67,13 +67,13 @@ export default function AdminScreen() {
           <div>
             {/* shows an loading message to the user with states */}
             <h1>Admin Screen</h1>
-            {/* <Row md-3>
+            <Row md={3}>
               <Col>
-                <Link to={`/product/newProduct`}>
+                <Link to={`/addProduct`}>
                   <Button>Add Product</Button>
                 </Link>
               </Col>{' '}
-            </Row> */}
+            </Row>
             <div className="products">
               {loading ? (
                 <LoadingBox />
