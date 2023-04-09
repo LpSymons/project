@@ -134,15 +134,13 @@ productRouter.put(
     const productId = req.params.id;
     const product = await Product.findById(productId);
     if (product) {
-      //product.name = req.body.name;
-
-      //product.countInStock = req.body.countInStock;
-      // product.slug = req.body.slug;
-      product.price = req.body.price;
-      // product.category = req.body.category;
-      // product.brand = req.body.brand;
-      // product.countInStock = req.body.countInStock;
-      // product.description = req.body.description;
+      product.name = req.body.name || product.name;
+      product.countInStock = req.body.countInStock || product.countInStock;
+      product.storage = req.body.storage || product.storage;
+      product.price = req.body.price || product.price;
+      product.category = req.body.category || product.category;
+      product.brand = req.body.brand || product.brand;
+      product.description = req.body.description || product.description;
       await product.save();
       res.send({ message: 'Product Updated' });
     } else {
