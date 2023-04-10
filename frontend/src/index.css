@@ -52,3 +52,15 @@ main {
 .small-container {
   max-width: 600px;
 }
+#cardOrder {
+  background-color: #4bacb8;
+  color: '#000000';
+}
+#card2 {
+  margin-top: 10px;
+}
+#card3 {
+  margin-top: 10px;
+  background-color: #4bacb8;
+  color: '#000000';
+}
