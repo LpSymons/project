@@ -13,11 +13,11 @@ import MessageBox from '../components/MessageBox';
 //using states with a logger to fetch data from the backend
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'FETCH_REQUEST':
+    case 'get_request':
       return { ...state, loading: true };
-    case 'FETCH_SUCCESS':
+    case 'request_success':
       return { ...state, products: action.payload, loading: false };
-    case 'FETCH_FAIL':
+    case 'request_failed':
       return { ...state, loading: false, error: action.payload };
     default:
       return state;
@@ -32,13 +32,13 @@ function HomeScreen() {
   });
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: 'FETCH_REQUEST' });
+      dispatch({ type: 'get_request' });
       try {
         //Call axios to send a ajax request to put the result in result.
         const result = await axios.get('/api/products');
-        dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
+        dispatch({ type: 'request_success', payload: result.data });
       } catch (err) {
-        dispatch({ type: 'FETCH_FAIL', payload: err.message });
+        dispatch({ type: 'request_failed', payload: err.message });
       }
     };
     fetchData();

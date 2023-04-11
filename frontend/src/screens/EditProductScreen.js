@@ -19,7 +19,8 @@ import { Store } from '../Store';
 import Modal from 'react-bootstrap/Modal';
 import { getError } from '../utlis.js';
 
-//using states with a logger to fetch data from the backend
+//using states with reducer fuction to get current item and preform a state update
+//returning the new state, re rendering the component if there has been a change.
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQUEST':
@@ -87,6 +88,7 @@ function EditProductScreen() {
   const [description, setDescription] = useState('');
   const [storage, setStorage] = useState('');
 
+  //using use effect hook to allow these methods to work after render.
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
@@ -107,6 +109,7 @@ function EditProductScreen() {
     fetchData();
   }, [slug, successDelete]);
 
+  //Handler to remove a product.
   const removeProductHandler = async (product) => {
     try {
       await axios.delete(`/api/products/${product._id}`);
@@ -121,6 +124,7 @@ function EditProductScreen() {
     }
   };
 
+  //Handler to update a product.
   const updateProductHandler = async () => {
     try {
       dispatch({ type: 'UPDATE_REQUEST' });
