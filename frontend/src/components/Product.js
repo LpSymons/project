@@ -1,7 +1,7 @@
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
-import Rating from './Rating';
+import { Star } from './Star';
 import axios from 'axios';
 import { useContext } from 'react';
 import { Store } from '../Store';
@@ -39,10 +39,9 @@ function Product(props) {
         <Link to={`/product/${product.slug}`}>
           <Card.Title>{product.name}</Card.Title>
         </Link>
-        <Rating
-          rating={product.rating}
-          numReviews={product.numReviews}
-        ></Rating>
+        <Star rating={product.rating} reviews={product.numReviews}>
+          {' '}
+        </Star>
         <Card.Text>£{product.price.toFixed(2)}</Card.Text>
         <Button onClick={() => addBasketHandler(product)}>Add to Basket</Button>
       </Card.Body>

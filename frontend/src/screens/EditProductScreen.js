@@ -8,7 +8,6 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
-import Rating from '../components/Rating';
 import Card from 'react-bootstrap/Card';
 import { Helmet } from 'react-helmet-async';
 import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';

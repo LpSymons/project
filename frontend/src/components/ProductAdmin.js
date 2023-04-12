@@ -1,11 +1,11 @@
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { Link, useNavigate } from 'react-router-dom';
-import Rating from './Rating';
 import axios from 'axios';
 import Row from 'react-bootstrap/Row';
 import { useContext } from 'react';
 import { Store } from '../Store';
+import { Star } from './Star';
 
 function Product(props) {
   const { product } = props;
@@ -44,10 +44,9 @@ function Product(props) {
           <Link to={`/admin/product/${product.slug}`}>
             <Card.Title>{product.name}</Card.Title>
           </Link>
-          <Rating
-            rating={product.rating}
-            numReviews={product.numReviews}
-          ></Rating>
+          <Star rating={product.rating} reviews={product.numReviews}>
+            {' '}
+          </Star>
           <Card.Text>£{product.price.toFixed(2)}</Card.Text>
           <Link to={`/admin/product/${product.slug}`}>
             <Button>Edit Product</Button>

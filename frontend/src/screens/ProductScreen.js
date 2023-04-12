@@ -6,7 +6,6 @@ import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
-import Rating from '../components/Rating';
 import Card from 'react-bootstrap/Card';
 import { Helmet } from 'react-helmet-async';
 import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
@@ -14,6 +13,7 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { useContext } from 'react';
 import { Store } from '../Store';
+import { Star } from '../components/Star';
 
 //using states with a logger to fetch data from the backend
 const reducer = (state, action) => {
@@ -94,10 +94,9 @@ function ProductScreen() {
             </ListGroup.Item>
             <ListGroup.Item>Storage : {product.storage}</ListGroup.Item>
             <ListGroup.Item>
-              <Rating
-                rating={product.rating}
-                numReviews={product.numReviews}
-              ></Rating>
+              <Star rating={product.rating} reviews={product.numReviews}>
+                {' '}
+              </Star>
             </ListGroup.Item>
             <ListGroup.Item>Price : £{product.price}</ListGroup.Item>
             <ListGroup.Item>
