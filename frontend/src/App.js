@@ -62,13 +62,13 @@ function App() {
             }}
           >
             <Container>
-              <LinkContainer to="/">
+              <SearchBox />
+              <LinkContainer className="navbar-brand mx-auto" to="/">
                 <Navbar.Brand>Shopping Project</Navbar.Brand>
               </LinkContainer>
-              <SearchBox />
-              <Nav className="me-auto">
+              <Nav className="mr-auto">
                 <Link to="/basket" className="nav-link">
-                  Cart
+                  Basket
                   {cart.cartItems.length > 0 && (
                     <Badge pill bg="danger">
                       {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
@@ -76,13 +76,15 @@ function App() {
                   )}
                 </Link>
                 {userInfo ? (
-                  <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
+                  <NavDropdown
+                    class="navbar-nav w-100"
+                    title={userInfo.name}
+                    id="basic-nav-dropdown"
+                  >
                     <LinkContainer to="/profile">
                       <NavDropdown.Item>User Profile</NavDropdown.Item>
                     </LinkContainer>
-                    <LinkContainer to="/orderhistory">
-                      <NavDropdown.Item>Order History</NavDropdown.Item>
-                    </LinkContainer>
+
                     <NavDropdown.Divider />
                     <Link
                       className="dropdown-item"
