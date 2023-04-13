@@ -15,6 +15,7 @@ const data = {
       isAdmin: false,
     },
   ],
+
   products: [
     {
       //_id: '1',
