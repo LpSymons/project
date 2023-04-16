@@ -16,7 +16,7 @@ export default function PostageScreen() {
   const submitHandler = (e) => {
     e.preventDefault();
     ctxDispatch({
-      type: 'SAVE_DELIVERY_ADDRESS',
+      type: 'save_delivery_address',
       payload: {
         fullName,
         address,

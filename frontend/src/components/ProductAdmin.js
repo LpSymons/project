@@ -14,7 +14,7 @@ function Product(props) {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { products } = state;
   const {
-    cart: { cartItems },
+    basket: { basketItems },
   } = state;
 
   const productHandler = async (item) => {

@@ -9,7 +9,7 @@ export default function PaymentMethodScreen() {
   const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
-    cart: { postalAddress, paymentMethod },
+    basket: { postalAddress, paymentMethod },
   } = state;
 
   const [paymentMethodType, setPaymentMethod] = useState(
@@ -17,7 +17,7 @@ export default function PaymentMethodScreen() {
   );
   const submitHandler = (e) => {
     e.preventDefault();
-    ctxDispatch({ type: 'SAVE_PAYMENT_METHOD', payload: paymentMethodType });
+    ctxDispatch({ type: 'save_payment_info', payload: paymentMethodType });
     localStorage.setItem('paymentMethod', paymentMethodType);
     navigate('/placeorder');
   };

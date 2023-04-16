@@ -12,8 +12,8 @@ import { Link, useNavigate } from 'react-router-dom';
 export default function CreateOrderScreen() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const navigate = useNavigate();
-  const { cart: basket, userInfo } = state;
-  const total = basket.cartItems.reduce(
+  const { basket, userInfo } = state;
+  const total = basket.basketItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
@@ -58,7 +58,7 @@ export default function CreateOrderScreen() {
               <div className="card-body">
                 <blockquote className="blockquote mb-0">
                   <ListGroup variant="flush">
-                    {basket.cartItems.map((item) => (
+                    {basket.basketItems.map((item) => (
                       <ListGroup.Item key={item._id}>
                         <Row className="align-items-center">
                           <span>{item.name}</span>

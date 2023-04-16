@@ -11,12 +11,12 @@ function Product(props) {
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
-    cart: { cartItems },
+    basket: { basketItems },
   } = state;
 
   //Define update item handler
   const addBasketHandler = async (item) => {
-    const existItem = cartItems.find((x) => x._id === product._id);
+    const existItem = basketItems.find((x) => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
     //Ajax request to backend to get data of the current product
     const { data } = await axios.get(`/api/products/${item._id}`);
@@ -25,7 +25,7 @@ function Product(props) {
       return;
     }
     ctxDispatch({
-      type: 'CART_ADD_ITEM',
+      type: 'basket_add',
       payload: { ...item, quantity },
     });
   };

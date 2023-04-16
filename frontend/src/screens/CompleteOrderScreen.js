@@ -27,22 +27,22 @@ export default function CompleteOrderScreen() {
   });
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
-    cart: { cartItems },
+    basket: { basketItems },
   } = state;
-  const { cart: basket, userInfo } = state;
-  const total = basket.cartItems.reduce(
+  const { basket, userInfo } = state;
+  const total = basket.basketItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
   function order() {
-    order = basket.cartItems.map((x) => ({ ...x, product: x._id }));
+    order = basket.basketItems.map((x) => ({ ...x, product: x._id }));
   }
   const orderHandler = async () => {
     try {
       dispatch({ type: 'request' });
 
       const { data } = await axios.put(`/api/products/${order}`, {
-        productId: basket.cartItems,
+        productId: basket.basketItems,
       });
 
       ctxDispatch({ type: 'clear_basket' });
@@ -123,7 +123,7 @@ export default function CompleteOrderScreen() {
               <div className="card-body">
                 <blockquote className="blockquote mb-0">
                   <ListGroup variant="flush">
-                    {basket.cartItems.map((item) => (
+                    {basket.basketItems.map((item) => (
                       <ListGroup.Item key={item._id}>
                         <Row className="align-items-center">
                           <span>{item.name}</span>

@@ -2,14 +2,14 @@ import { createContext, useReducer } from 'react';
 
 export const Store = createContext();
 
-//Check local storage for user info/cart items , if it exsits parse it to json object
+//Check local storage for user info/basket items , if it exsits parse it to json object
 const initialState = {
   userInfo: localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('userInfo'))
     : null,
-  cart: {
-    cartItems: localStorage.getItem('cartItems')
-      ? JSON.parse(localStorage.getItem('cartItems'))
+  basket: {
+    basketItems: localStorage.getItem('basketItems')
+      ? JSON.parse(localStorage.getItem('basketItems'))
       : [],
     //if the payment method exists use it if not make it an empty string.
     paymentMethod: localStorage.getItem('paymentMethod')
@@ -19,53 +19,59 @@ const initialState = {
 };
 function reducer(state, action) {
   switch (action.type) {
-    case 'CART_ADD_ITEM':
-      // add to cart
+    case 'basket_add':
+      // add to basket
       const newItem = action.payload;
-      const existItem = state.cart.cartItems.find(
+      const existItem = state.basket.basketItems.find(
         (item) => item._id === newItem._id
       );
-      const cartItems = existItem
-        ? state.cart.cartItems.map((item) =>
+      const basketItems = existItem
+        ? state.basket.basketItems.map((item) =>
             item._id === existItem._id ? newItem : item
           )
-        : [...state.cart.cartItems, newItem];
+        : [...state.basket.basketItems, newItem];
       //Store items in basket locally so that when page is refreshed items persist
-      localStorage.setItem('cartitems', JSON.stringify(cartItems));
-      return { ...state, cart: { ...state.cart, cartItems } };
-    case 'BASKET_REMOVE_ITEM': {
-      const cartItems = state.cart.cartItems.filter(
+      localStorage.setItem('basketitems', JSON.stringify(basketItems));
+      return {
+        ...state,
+        basket: { ...state.basket, basketItems: basketItems },
+      };
+    case 'basket_remove_item': {
+      const basketItems = state.basket.basketItems.filter(
         (item) => item._id !== action.payload._id
       );
-      localStorage.setItem('cartItems', JSON.stringify(cartItems));
-      return { ...state, cart: { ...state.cart, cartItems } };
+      localStorage.setItem('basketItems', JSON.stringify(basketItems));
+      return { ...state, basket: { ...state.basket, basketItems } };
     }
     case 'clear_basket':
-      return { ...state, cart: { ...state.cart, cartItems } };
-    case 'USER_SIGNIN':
+      return {
+        ...state,
+        basket: { ...state.basket, basketItems: basketItems },
+      };
+    case 'user_signin':
       return { ...state, userInfo: action.payload };
-    case 'USER_SIGNOUT':
+    case 'user_signout':
       return {
         ...state,
         userInfo: null,
-        cart: {
-          cartItems: [],
+        basket: {
+          basketItems: [],
           postalAddress: {},
           paymentMethod: '',
         },
       };
-    case 'SAVE_DELIVERY_ADDRESS':
+    case 'save_delivery_address':
       return {
         ...state,
-        cart: {
-          ...state.cart,
+        basket: {
+          ...state.basket,
           postalAddress: action.payload,
         },
       };
-    case 'SAVE_PAYMENT_METHOD':
+    case 'save_payment_info':
       return {
         ...state,
-        cart: { ...state.cart, paymentMethod: action.payload },
+        basket: { ...state.basket, paymentMethod: action.payload },
       };
     default:
       return state;

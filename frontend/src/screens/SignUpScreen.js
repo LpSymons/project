@@ -31,7 +31,7 @@ export default function SignUpScreen() {
         email,
         password,
       });
-      ctxDispatch({ type: 'USER_SIGNIN', payload: data });
+      ctxDispatch({ type: 'user_signin', payload: data });
       localStorage.setItem('userInfo', JSON.stringify(data));
       navigate(redirect || '/');
     } catch (err) {

@@ -26,12 +26,12 @@ import CompleteOrderScreen from './screens/CompleteOrderScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { cart, userInfo } = state;
+  const { basket, userInfo } = state;
   const { product } = state;
 
   //Remove items when signout has occured
   const signoutHandler = () => {
-    ctxDispatch({ type: 'USER_SIGNOUT' });
+    ctxDispatch({ type: 'user_signout' });
     localStorage.removeItem('userInfo');
     localStorage.removeItem('paymentMethod');
   };
@@ -67,9 +67,9 @@ function App() {
               <Nav className="mr-auto">
                 <Link to="/basket" className="nav-link">
                   Basket
-                  {cart.cartItems.length > 0 && (
+                  {basket.basketItems.length > 0 && (
                     <Badge pill bg="danger">
-                      {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                      {basket.basketItems.reduce((a, c) => a + c.quantity, 0)}
                     </Badge>
                   )}
                 </Link>

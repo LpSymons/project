@@ -15,7 +15,7 @@ export default function BasketScreen() {
   const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
-    cart: { cartItems },
+    basket: { basketItems },
   } = state;
 
   //Define update item handler
@@ -27,13 +27,13 @@ export default function BasketScreen() {
       return;
     }
     ctxDispatch({
-      type: 'CART_ADD_ITEM',
+      type: 'basket_add',
       payload: { ...item, quantity },
     });
   };
   //Define the remove item handler
   const removeBasketHandler = (item) => {
-    ctxDispatch({ type: 'BASKET_REMOVE_ITEM', payload: item });
+    ctxDispatch({ type: 'basket_remove_item', payload: item });
   };
 
   const checkoutHandler = () => {
@@ -48,13 +48,13 @@ export default function BasketScreen() {
       <h1>Shopping Basket</h1>
       <Row>
         <Col md={8}>
-          {cartItems.length === 0 ? (
+          {basketItems.length === 0 ? (
             <MessageBox>
               Nothing in Basket.<Link to="/">Add Items to Basket</Link>
             </MessageBox>
           ) : (
             <ListGroup>
-              {cartItems.map((item) => (
+              {basketItems.map((item) => (
                 <ListGroup.Item key={item._id}>
                   <Row className="align-items-center">
                     <Col md={4}>
@@ -107,9 +107,9 @@ export default function BasketScreen() {
               <ListGroup varient="flush">
                 <ListGroup.Item>
                   <h3>
-                    Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}{' '}
+                    Subtotal ({basketItems.reduce((a, c) => a + c.quantity, 0)}{' '}
                     items) : £
-                    {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
+                    {basketItems.reduce((a, c) => a + c.price * c.quantity, 0)}
                   </h3>
                 </ListGroup.Item>
                 <div className="d-grid">
@@ -117,7 +117,7 @@ export default function BasketScreen() {
                     type="button"
                     variant="primary"
                     onClick={checkoutHandler}
-                    disabled={cartItems.length === 0}
+                    disabled={basketItems.length === 0}
                   >
                     Checkout
                   </Button>
