@@ -44,6 +44,7 @@ const data = {
         'Siri ' +
         'Apple Pay ' +
         '228 g and 0.74 cm (8.03 ounces and 0.29 inches)',
+      reviewListing: 'This Product is good at testing reviews',
     },
     {
       // _id: '2',
@@ -362,6 +363,45 @@ const data = {
         'Siri ' +
         'Apple Pay ' +
         '189 g and 0.74 cm (6.66 ounces and 0.29 inches).',
+    },
+    {
+      // _id: '4',
+      name: 'Galaxy S20',
+      slug: 'Galaxy-S20-url-display',
+      category: 'mobiles',
+      image: '/images/SamsungS20.png',
+      storage: '128GB',
+      price: 449.0,
+      countInStock: 2,
+      brand: 'Samsung',
+      rating: 3.8,
+      numReviews: 1,
+      description:
+        'Capture the world around you like never before ' +
+        'Experience every moment in full, edge-to-edge clarity ' +
+        'Speed, power and performance fit for the future ' +
+        'Stay in charge longer than ever before ' +
+        'Truly epic power for truly epic days ' +
+        'Keep focused on what matters most to you ',
+    },
+    {
+      // _id: '4',
+      name: 'Google Pixel 6',
+      slug: 'Google-Pixel-6-url-display',
+      category: 'mobiles',
+      image: '/images/Google_Pixel_6.png',
+      storage: '128GB',
+      price: 379.0,
+      countInStock: 5,
+      brand: 'Google',
+      rating: 3.5,
+      numReviews: 2,
+      description:
+        'The adaptive battery lasts up to 48 hours on a single charge with the Extreme Battery Saver ' +
+        'Dedicated just to security, the Titan M2 chip watches over multiple layers of protection so your data stay absolutely safe ' +
+        'If theres a stranger in your picture, use the Magic Eraser to effortlessly remove them from the background ' +
+        'The Pixel 6 is waterproof with IP68 certification, so you can take it with you in the shower or in the pool ' +
+        'With built-in Google Assistant, you can compose messages, answer calls, set alarms and so much more, with just your voice ',
     },
   ],
 };

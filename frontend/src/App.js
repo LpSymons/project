@@ -22,10 +22,12 @@ import AdminScreen from './screens/AdminScreen';
 import EditProductScreen from './screens/EditProductScreen';
 import AddProductScreen from './screens/AddProductScreen';
 import CreateOrderScreen from './screens/CreateOrderScreen';
+import CompleteOrderScreen from './screens/CompleteOrderScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
+  const { product } = state;
 
   //Remove items when signout has occured
   const signoutHandler = () => {
@@ -34,19 +36,15 @@ function App() {
     localStorage.removeItem('paymentMethod');
   };
 
-  const [categories, setCategories] = useState([]);
+  const [searchRes, setSearchRes] = useState([]);
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const { data } = await axios.get(`/api/products/categories`);
-        setCategories(data);
-      } catch (err) {
-        window.alert(err);
-      }
-    };
-    fetchCategories();
-  }, []);
+  // useEffect(() => {
+  //   getsearchRes().then(json => {
+  //     setSearchRes(json)
+  //     return product.name
+  //   })
+  // },[]);
+
   return (
     <BrowserRouter>
       {/* using react bootstrap to style the elements within container */}
@@ -77,7 +75,7 @@ function App() {
                 </Link>
                 {userInfo ? (
                   <NavDropdown
-                    class="navbar-nav w-100"
+                    className="navbar-nav w-100"
                     title={userInfo.name}
                     id="basic-nav-dropdown"
                   >
@@ -116,6 +114,10 @@ function App() {
               <Route path="/admin" element={<AdminScreen />}></Route>
               <Route path="/placeorder" element={<CreateOrderScreen />}></Route>
               <Route path="/addProduct" element={<AddProductScreen />}></Route>
+              <Route
+                path="/completeOrder"
+                element={<CompleteOrderScreen />}
+              ></Route>
               <Route path="/search" element={<SearchScreen />}></Route>
               <Route
                 path="/admin/product/:slug"

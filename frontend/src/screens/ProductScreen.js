@@ -98,7 +98,7 @@ function ProductScreen() {
                 {' '}
               </Star>
             </ListGroup.Item>
-            <ListGroup.Item>Price : £{product.price}</ListGroup.Item>
+            <ListGroup.Item>Brand : {product.brand}</ListGroup.Item>
             <ListGroup.Item>
               Description:
               <p>{product.description}</p>
@@ -141,6 +141,20 @@ function ProductScreen() {
             </Card.Body>
           </Card>
         </Col>
+      </Row>
+      <Row>
+        <h2>Reviews</h2>
+        {product.reviewListing == null ? (
+          <Card>
+            <h2>No reviews yet....</h2>
+          </Card>
+        ) : (
+          <ListGroup variant="flush" sm={3}>
+            <Card>
+              <ListGroup.Item>{product.reviewListing}</ListGroup.Item>
+            </Card>
+          </ListGroup>
+        )}
       </Row>
     </div>
   );

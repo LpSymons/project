@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Store } from '../Store';
 import { CarouselItem } from 'react-bootstrap';
@@ -10,88 +11,90 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export default function CreateOrderScreen() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
+  const navigate = useNavigate();
   const { cart: basket, userInfo } = state;
   const total = basket.cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
 
+  const orderHandler = async () => {
+    navigate('/completeOrder');
+  };
+
   return (
     <div>
       <div>
         <h1>Order Confirmation</h1>
       </div>
-      <Col md-4>
-        <Row>
-          <div class="card" id="cardOrder">
-            <div class="card-header">Delivery Information</div>
-            <div class="card-body">
-              <blockquote class="blockquote mb-0">
-                <p>Name :</p>
-                <footer class="blockquote-footer">
-                  {basket.postalAddress.fullName}{' '}
-                </footer>
-              </blockquote>
-              <blockquote class="blockquote mb-0">
-                <p>Address :</p>
-                <footer class="blockquote-footer">
-                  {basket.postalAddress.address}{' '}
-                </footer>
-              </blockquote>
-              <blockquote class="blockquote mb-0">
-                <p>City :</p>
-                <footer class="blockquote-footer">
-                  {basket.postalAddress.city}{' '}
-                </footer>
-              </blockquote>
+      <Form>
+        <Col md={8}>
+          <Row>
+            <div className="card" id="cardOrder">
+              <div className="card-header">Delivery Information</div>
+              <div className="card-body">
+                <blockquote className="blockquote mb-0">
+                  <p>Name :</p>
+                  <footer className="blockquote-footer">
+                    {basket.postalAddress.fullName}{' '}
+                  </footer>
+                </blockquote>
+                <blockquote className="blockquote mb-0">
+                  <p>Address :</p>
+                  <footer className="blockquote-footer">
+                    {basket.postalAddress.address}{' '}
+                  </footer>
+                </blockquote>
+                <blockquote className="blockquote mb-0">
+                  <p>City :</p>
+                  <footer className="blockquote-footer">
+                    {basket.postalAddress.city}{' '}
+                  </footer>
+                </blockquote>
+              </div>
             </div>
-          </div>
-          <div class="card" id="card2">
-            <div class="card-header">Products</div>
-            <div class="card-body">
-              <blockquote class="blockquote mb-0">
-                <ListGroup variant="flush">
-                  {basket.cartItems.map((item) => (
-                    <ListGroup.Item key={item._id}>
-                      <Row className="align-items-center">
-                        <span>{item.name}</span>
-                        <Col lg={6}>
-                          <img
-                            src={item.image}
-                            alt={item.name}
-                            className="img-fluid rounded img-thumbnail"
-                          ></img>{' '}
-                        </Col>
-                        <Col md={3}>
-                          <span>Quantity : {item.quantity}</span>
-                        </Col>
-                        <Col md={3}>Price: £{item.price}</Col>
-                      </Row>
-                    </ListGroup.Item>
-                  ))}
-                </ListGroup>
-              </blockquote>
+            <div className="card" id="card2">
+              <div className="card-header">Products</div>
+              <div className="card-body">
+                <blockquote className="blockquote mb-0">
+                  <ListGroup variant="flush">
+                    {basket.cartItems.map((item) => (
+                      <ListGroup.Item key={item._id}>
+                        <Row className="align-items-center">
+                          <span>{item.name}</span>
+                          <Col lg={6}>
+                            <img
+                              src={item.image}
+                              alt={item.name}
+                              className="img-fluid rounded img-thumbnail"
+                            ></img>{' '}
+                          </Col>
+                          <Col md={3}>
+                            <span>Quantity : {item.quantity}</span>
+                          </Col>
+                          <Col md={3}>Price: £{item.price}</Col>
+                        </Row>
+                      </ListGroup.Item>
+                    ))}
+                  </ListGroup>
+                </blockquote>
+              </div>
             </div>
-          </div>
-          <div class="card" id="card3">
-            <div class="card-header">Amount Due</div>
-            <div class="card-body">
-              <blockquote class="blockquote mb-0">
-                <strong>Total Cost : </strong>£{total}
-              </blockquote>
+            <div className="card" id="card3">
+              <div className="card-header">Amount Due</div>
+              <div className="card-body">
+                <blockquote className="blockquote mb-0">
+                  <strong>Total Cost : </strong>£{total}
+                </blockquote>
+              </div>
+              <Button onClick={orderHandler} varient="primary" type="button">
+                Pay
+              </Button>
             </div>
-          </div>
-        </Row>
-      </Col>
-      <div>
-        <Button>Place Order</Button>
-      </div>
+          </Row>
+        </Col>
+      </Form>
+      <div></div>
     </div>
   );
 }
-
-// const [fullName, setFullName] = useState('');
-// const [address, setAddress] = useState('');
-// const [city, setCity] = useState('');
-// const [postcode, setPostcode] = useState('');
-// const [country, setCountry] = useState('');
