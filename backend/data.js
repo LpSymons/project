@@ -403,6 +403,43 @@ const data = {
         'The Pixel 6 is waterproof with IP68 certification, so you can take it with you in the shower or in the pool ' +
         'With built-in Google Assistant, you can compose messages, answer calls, set alarms and so much more, with just your voice ',
     },
+    {
+      // _id: '4',
+      name: 'Mororola Moto g22',
+      slug: 'Mororola-Moto-g22-url-display',
+      category: 'mobiles',
+      image: '/images/motorolag22.png',
+      storage: '64GB',
+      price: 99.0,
+      countInStock: 1,
+      brand: 'Motorola',
+      rating: 4,
+      numReviews: 1,
+      description:
+        'Battery: Li-Po 5000 mAh' +
+        'Internal memory: 64GB ' +
+        'External memory: microSDXC ' +
+        'RAM: 4GB ' +
+        'Screen size: 6.5 inches, Resolution: 720 x 1600 pixels ',
+    },
+    {
+      // _id: '4',
+      name: 'Nokia G10',
+      slug: 'Nokia-G10-url-display',
+      category: 'mobiles',
+      image: '/images/nokiag10.png',
+      storage: '32GB',
+      price: 89.0,
+      countInStock: 3,
+      brand: 'Nokia',
+      rating: 2,
+      numReviews: 3,
+      description:
+        'The secret to happiness is… battery life. Once your ' +
+        'mobile dies its all missed calls, sulking, and ' +
+        'tantrums. Thats why Nokia G10 comes with a battery ' +
+        'that can last up to 3 days between charges ',
+    },
   ],
 };
 export default data;
