@@ -36,15 +36,6 @@ function App() {
     localStorage.removeItem('paymentMethod');
   };
 
-  const [searchRes, setSearchRes] = useState([]);
-
-  // useEffect(() => {
-  //   getsearchRes().then(json => {
-  //     setSearchRes(json)
-  //     return product.name
-  //   })
-  // },[]);
-
   return (
     <BrowserRouter>
       {/* using react bootstrap to style the elements within container */}

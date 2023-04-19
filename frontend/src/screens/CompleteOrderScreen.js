@@ -22,82 +22,43 @@ const reducer = (state, action) => {
 
 export default function CompleteOrderScreen() {
   const navigate = useNavigate();
-  const [{ loading }, dispatch] = useReducer(reducer, {
+  const [{ loading, product }, dispatch] = useReducer(reducer, {
     loading: false,
   });
+  const [countInStock, setCountInStock] = useState('');
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const {
-    basket: { basketItems },
-  } = state;
   const { basket, userInfo } = state;
   const total = basket.basketItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
-  function order() {
-    order = basket.basketItems.map((x) => ({ ...x, product: x._id }));
-  }
+
   const orderHandler = async () => {
     try {
       dispatch({ type: 'request' });
 
-      const { data } = await axios.put(`/api/products/${order}`, {
-        productId: basket.basketItems,
+      const prod = basket.basketItems.find((x) => x._id === product._id);
+      await axios.put(`/api/products/${product._id === prod}`, {
+        countInStock,
       });
-
+      //   const existItem = basket.basketItems.find((x) => x._id === product._id);
       ctxDispatch({ type: 'clear_basket' });
+      navigate('/');
     } catch (err) {
       window.alert(err);
     }
-    navigate('/');
   };
 
-  //   const updateProductHandler = async () => {
-  //     try {
-  //       dispatch({ type: 'UPDATE_REQUEST' });
-  //       await axios.put(`/api/products/${product._id}`, {
-  //         _id: productId,
-  //         name,
-  //         price,
-  //         category,
-  //         brand,
-  //         countInStock,
-  //         description,
-  //         storage,
-  //       });
-  //       dispatch({
-  //         type: 'UPDATE_SUCCESS',
-  //       });
-  //       window.alert('Product updated successfully');
-  //       navigate('/admin');
-  //     } catch (err) {
-  //       window.alert(getError(err));
-  //       dispatch({ type: 'UPDATE_FAIL' });
-  //     }
-  //   };
-  //   const updateProductHandler = async () => {
-  //     try {
-  //       dispatch({ type: 'UPDATE_REQUEST' });
-  //       await axios.put(`/api/products/${product._id}`, {
-  //         _id: productId,
-  //         name,
-  //         price,
-  //         category,
-  //         brand,
-  //         countInStock,
-  //         description,
-  //         storage,
-  //       });
-  //       dispatch({
-  //         type: 'UPDATE_SUCCESS',
-  //       });
-  //       window.alert('Product updated successfully');
-  //       navigate('/admin');
-  //     } catch (err) {
-  //       window.alert(getError(err));
-  //       dispatch({ type: 'UPDATE_FAIL' });
-  //     }
-  //   };
+  // const checkCart = (product) => {
+  //   const exist = basket.basketItems.find((x) => x.id === product.id);
+  //   if (exist) {
+  //     window.alert('itsalive');
+  //     basket.basketItems.map((x) =>
+  //       x.id === product.id ? { ...(exist === product.id) } : x
+  //     );
+  //   }
+  // };
+
   return (
     <div>
       <Row>

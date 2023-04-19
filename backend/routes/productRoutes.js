@@ -16,7 +16,7 @@ productRouter.get(
   })
 );
 
-const PAGE_SIZE = 3;
+const PAGE_SIZE = 6;
 productRouter.get(
   '/search',
   expressAsyncHandler(async (req, res) => {
@@ -169,13 +169,5 @@ productRouter.post(
     res.send({ message: 'Product Created', product });
   })
 );
-
-// productRouter.post(
-//   expressAsyncHandler(async (req, res) => {
-//     const newProduct = new Product({
-//       name: 'new name' + Date.now(),
-//     });
-//   })
-// );
 
 export default productRouter;

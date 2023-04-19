@@ -86,7 +86,7 @@ function ProductScreen() {
         <Col md={3}>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              {/* Using helmet to display the product name as the name of the tab in chrome */}
+              {/* Using helmet to display the product name as the meta tag to discribe pages contents */}
               <Helmet>
                 <title>{product.name}</title>
               </Helmet>

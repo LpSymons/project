@@ -70,6 +70,7 @@ function EditProductScreen() {
   });
   const navigate = useNavigate();
   const { state } = useContext(Store);
+  //Params hook to access parametets of the current url
   const params = useParams();
   const { slug } = params;
   const { id: productId } = params;
