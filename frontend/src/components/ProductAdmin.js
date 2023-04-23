@@ -29,7 +29,6 @@ function Product(props) {
     return data;
   };
 
-  //Add out of stock and hide button for basket to-do
   return (
     <div>
       <Card>

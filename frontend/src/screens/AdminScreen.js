@@ -15,10 +15,10 @@ import { useContext } from 'react';
 import { Store } from '../Store';
 import Product from '../components/ProductAdmin';
 import { Link } from 'react-router-dom';
-//import data from '../data';
 import logger from 'use-reducer-logger';
 
-//using states with a logger to fetch data from the backend
+//using states with reducer fuction to get current item and preform a state update
+//returning the new state, re rendering the component if there has been a change.
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQUEST':
@@ -44,7 +44,7 @@ export default function AdminScreen() {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        //Call axios to send a ajax request to put the result in result.
+        //Call axios to send a ajax request to get result.
         const result = await axios.get('/api/products');
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
@@ -54,8 +54,6 @@ export default function AdminScreen() {
     fetchData();
   }, []);
 
-  //a direct function that plugs the slug
-
   return (
     <div>
       <Helmet>
@@ -64,7 +62,6 @@ export default function AdminScreen() {
       <div>
         {userInfo && userInfo.isAdmin ? (
           <div>
-            {/* shows an loading message to the user with states */}
             <h1>Admin Screen</h1>
             <Row md={3}>
               <Col>
@@ -103,24 +100,3 @@ export default function AdminScreen() {
     </div>
   );
 }
-
-//   const adminCheckHandler = async (isAdmin) => {
-//     const { data } = await axios.get(`/api/users/${isAdmin}`);
-//     if (data.isAdmin === false) {
-//       this.adminPass = adminPass;
-//       adminPass = true;
-//       window.alert('This page is restricted');
-//       <h1>Hello</h1>;
-//       return <redirect to="/" />;
-//     }
-//   };
-//   <InputGroup className="mb-3">
-//           <div>
-//             {userInfo.isAdmin === true ? (
-//               <Button type="submit" onClick={adminHandler}>
-//                 Admin Panel
-//               </Button>
-//             ) : null}
-//           </div>
-//         </InputGroup>
-// }

@@ -11,6 +11,8 @@ import Button from 'react-bootstrap/Button';
 import Product from '../components/Product';
 import LinkContainer from 'react-router-bootstrap/LinkContainer';
 
+//using states with reducer fuction to get current item and preform a state update
+//returning the new state, re rendering the component if there has been a change.
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQUEST':

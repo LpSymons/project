@@ -9,6 +9,8 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+//using states with reducer fuction to get current item and preform a state update
+//returning the new state, re rendering the component if there has been a change.
 const reducer = (state, action) => {
   switch (action.type) {
     case 'request':
@@ -37,28 +39,16 @@ export default function CompleteOrderScreen() {
     try {
       dispatch({ type: 'request' });
 
-      const prod = basket.basketItems.find((x) => x._id === product._id);
-      await axios.put(`/api/products/${product._id === prod}`, {
-        countInStock,
-      });
-      //   const existItem = basket.basketItems.find((x) => x._id === product._id);
+      //const prod = basket.basketItems.find((x) => x._id === product._id);
+      // await axios.put(`/api/products/${product._id === }`, {
+      //   countInStock,
+      // });
       ctxDispatch({ type: 'clear_basket' });
       navigate('/');
     } catch (err) {
       window.alert(err);
     }
   };
-
-  // const checkCart = (product) => {
-  //   const exist = basket.basketItems.find((x) => x.id === product.id);
-  //   if (exist) {
-  //     window.alert('itsalive');
-  //     basket.basketItems.map((x) =>
-  //       x.id === product.id ? { ...(exist === product.id) } : x
-  //     );
-  //   }
-  // };
-
   return (
     <div>
       <Row>

@@ -10,7 +10,8 @@ import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 
-//using states with a logger to fetch data from the backend
+//using states with reducer fuction to get current item and preform a state update
+//returning the new state, re rendering the component if there has been a change.
 const reducer = (state, action) => {
   switch (action.type) {
     case 'get_request':
