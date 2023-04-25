@@ -1,11 +1,9 @@
 import React, { useContext } from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Store } from '../Store';
-import { CarouselItem } from 'react-bootstrap';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link, useNavigate } from 'react-router-dom';
 

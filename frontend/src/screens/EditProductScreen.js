@@ -6,11 +6,8 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import InputGroup from 'react-bootstrap/InputGroup';
 import ListGroup from 'react-bootstrap/ListGroup';
-import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 import { Helmet } from 'react-helmet-async';
-import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { useContext } from 'react';
@@ -53,21 +50,13 @@ const reducer = (state, action) => {
 };
 
 function EditProductScreen() {
-  const [
+  const [{ loading, error, product, successDelete }, dispatch] = useReducer(
+    reducer,
     {
-      loading,
-      error,
-      product,
-      pages,
-      loadingCreate,
-      loadingDelete,
-      successDelete,
-    },
-    dispatch,
-  ] = useReducer(reducer, {
-    loading: true,
-    error: '',
-  });
+      loading: true,
+      error: '',
+    }
+  );
   const navigate = useNavigate();
   const { state } = useContext(Store);
   //Params hook to access parametets of the current url

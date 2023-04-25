@@ -9,7 +9,6 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import Button from 'react-bootstrap/Button';
 import Product from '../components/Product';
-import LinkContainer from 'react-router-bootstrap/LinkContainer';
 
 //using states with reducer fuction to get current item and preform a state update
 //returning the new state, re rendering the component if there has been a change.
@@ -38,10 +37,7 @@ export default function SearchScreen() {
   const navigate = useNavigate();
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
-  const category = sp.get('category') || 'all';
   const query = sp.get('query') || 'all';
-  const price = sp.get('category') || 'all';
-  const order = sp.get('order') || 'newest';
   const page = sp.get('page') || 1;
 
   const [{ loading, error, products, pages, countProducts }, dispatch] =
@@ -54,7 +50,7 @@ export default function SearchScreen() {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `/api/products/search?page=${page}&query=${query}&category=${category}&price=${price}`
+          `/api/products/search?page=${page}&query=${query}`
         );
         dispatch({
           type: 'FETCH_SUCCESS',
@@ -68,31 +64,7 @@ export default function SearchScreen() {
       }
     };
     fetchData();
-  }, [category, error, page, price, query]);
-
-  const [categories, setCategories] = useState([]);
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const { data } = await axios.get(`/api/products/categories`);
-        setCategories(data);
-      } catch (err) {
-        window.alert(err);
-      }
-    };
-    fetchCategories();
-  }, [dispatch]);
-
-  const getFilterUrl = (filter, skipPathname) => {
-    const filterPage = filter.page || page;
-    const filterCategory = filter.category || category;
-    const filterQuery = filter.query || query;
-    const filterPrice = filter.price || price;
-    const sortOrder = filter.order || order;
-    return `${
-      skipPathname ? '' : '/search?'
-    }category=${filterCategory}&query=${filterQuery}&price=${filterPrice}&order=${sortOrder}&page=${filterPage}`;
-  };
+  }, [error, page, query]);
 
   return (
     <div>
@@ -111,12 +83,7 @@ export default function SearchScreen() {
                 <Col md={6}>
                   <div>
                     {countProducts === 0 ? 'No' : countProducts} Results
-                    {query !== 'all' && ' : ' + query}
-                    {category !== 'all' && ' : ' + category}
-                    {price !== 'all' && ' : Price' + price}
-                    {query !== 'all' ||
-                    category !== 'all' ||
-                    price !== 'all' ? (
+                    {query !== 'all' && ' : ' + query ? (
                       <Button
                         varient="light"
                         onClick={() => navigate('/search')}
@@ -138,26 +105,6 @@ export default function SearchScreen() {
                   </Col>
                 ))}
               </Row>
-
-              {/* <div>
-                {[...Array(pages).keys()].map((x) => (
-                  <LinkContainer
-                    key={x + 1}
-                    className="mx-1"
-                    to={{
-                      pathname: '/search',
-                      seacrh: getFilterUrl({ page: x + 1 }, true),
-                    }}
-                  >
-                    <Button
-                      className={Number(page) === x + 1 ? 'text-bold' : ''}
-                      variant="light"
-                    >
-                      {x + 1}
-                    </Button>
-                  </LinkContainer>
-                ))}
-              </div> */}
             </>
           )}
         </Col>

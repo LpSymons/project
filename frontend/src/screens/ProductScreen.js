@@ -8,7 +8,6 @@ import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Helmet } from 'react-helmet-async';
-import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { useContext } from 'react';

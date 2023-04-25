@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-//import data from '../data';
 import { useEffect, useReducer, useState } from 'react';
 import axios from 'axios';
 import logger from 'use-reducer-logger';

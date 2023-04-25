@@ -3,8 +3,6 @@ import { Helmet } from 'react-helmet-async';
 import { Store } from '../Store';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 
